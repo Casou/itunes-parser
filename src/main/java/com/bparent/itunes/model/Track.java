@@ -5,8 +5,10 @@ import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.math.BigInteger;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 @Data
@@ -192,6 +194,18 @@ public class Track extends ITunesNode {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public String getDecodedLocation() {
+        if (this.location == null) {
+            return null;
+        }
+        try {
+            return URLDecoder.decode(this.location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

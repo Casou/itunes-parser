@@ -2,6 +2,7 @@ import com.bparent.itunes.model.GeneralDict;
 import com.bparent.itunes.model.ITunesLibrary;
 import com.bparent.itunes.model.Track;
 import com.bparent.itunes.parser.ItunesParser;
+import com.bparent.itunes.utils.ITunesUtils;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -9,7 +10,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -235,6 +239,25 @@ public class ItunesParserTest {
                         assertEquals(0, item.getExtraProperties().size(),
                                 String.format("Erreur sur la playlist %d et l'item %d : %s", playlist.getPlaylistId(),
                                         item.getTrackId(), item.getExtraProperties().toString())))));
+    }
+
+    @Test
+    void test() throws IOException, SAXException, ParserConfigurationException {
+        ItunesParser itunesParser = new ItunesParser();
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
+
+        String itunesFolderPath = "/mnt/44D38A27637CE7D3/musiques/itunes";
+        List<Track> missingFiles = ITunesUtils.getMissingFiles(currentLibrary, itunesFolderPath);
+        System.out.println(missingFiles + " missing file(s)");
+
+        Map<Track, List<File>> trackListMap = ITunesUtils.suggestMissingFilesReplacement(missingFiles, itunesFolderPath);
+
+        trackListMap.forEach((track, files) ->
+                System.out.println(
+                        String.format("%s => %s : %d replacement(s)\n", track.getName(), track.getDecodedLocation(), files.size())
+                        + files.stream().map(file -> "\t" + file.getAbsolutePath()).collect(Collectors.joining("\n"))
+                        + "\n"));
     }
 
 //    @Test

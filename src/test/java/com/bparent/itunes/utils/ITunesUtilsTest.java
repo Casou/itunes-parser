@@ -27,10 +27,10 @@ class ITunesUtilsTest {
         PList pList = new PList(new IIOMetadataNode());
         GeneralDict generalDict = new GeneralDict(null);
         generalDict.setTracks(Arrays.asList(
-                buildTrack(1000, null, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3"),
-                buildTrack(2000, null, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_2.mp3"),
-                buildTrack(3000, null, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3"),
-                buildTrack(4000, null, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3")
+                buildTrack(1000, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3"),
+                buildTrack(2000, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_2.mp3"),
+                buildTrack(3000, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3"),
+                buildTrack(4000, "file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3")
         ));
         pList.setDict(generalDict);
         itunesLibrary.setPList(pList);
@@ -46,10 +46,9 @@ class ITunesUtilsTest {
         assertEquals(Integer.valueOf(4000), missingFiles.get(1).getItunesId());
     }
 
-    private Track buildTrack(Integer itunesId, String name, String location) {
+    private Track buildTrack(Integer itunesId, String location) {
         Track track = new Track(null);
         track.setItunesId(itunesId);
-        track.setName(name);
         track.setLocation(location);
         return track;
     }
@@ -58,9 +57,9 @@ class ITunesUtilsTest {
     void suggestMissingFilesReplacement_should_return_files_with_same_name_as_replacement_suggestion() {
         // Given
         List<Track> missingTracks = Arrays.asList(
-                buildTrack(1000, "void_music_1.mp3", null),
-                buildTrack(2000, "itunes_library_test.xml", null),
-                buildTrack(3000, "unknown_file", null)
+                buildTrack(1000, "folder/to/void_music_1.mp3"),
+                buildTrack(2000, "folder/to/itunes_library_test.xml"),
+                buildTrack(3000, "folder/to/unknown_file.mp4")
         );
 
         // When

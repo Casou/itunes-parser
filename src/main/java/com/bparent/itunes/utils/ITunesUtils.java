@@ -4,8 +4,6 @@ import com.bparent.itunes.model.ITunesLibrary;
 import com.bparent.itunes.model.Track;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +14,11 @@ public class ITunesUtils {
     private ITunesUtils() {
     }
 
-    public static List<Track> getMissingFiles(ITunesLibrary iTunesLibrary, String itunesFolderPath) throws UnsupportedEncodingException {
+    public static List<Track> getMissingFiles(ITunesLibrary iTunesLibrary, String itunesFolderPath) {
         List<Track> tracks = new ArrayList<>();
 
         for (Track track : iTunesLibrary.getPList().getDict().getTracks()) {
-            String filePath = itunesFolderPath + "/" + URLDecoder.decode(track.getLocation().substring(track.getLocation().indexOf("iTunes%20Media")), "UTF-8");
+            String filePath = itunesFolderPath + "/" + track.getDecodedLocation().substring(track.getLocation().indexOf("iTunes%20Media"));
             File f = new File(filePath);
             if (!f.exists()) {
                 tracks.add(track);
@@ -39,7 +37,17 @@ public class ITunesUtils {
 
     private static List<File> findReplacements(Track track, List<File> allFiles) {
         return allFiles.stream()
-                .filter(file -> file.getName().equalsIgnoreCase(track.getName()))
+                .filter(file -> file.getName().contains(new File(track.getName()).getName())
+                    || file.getName().contains(track.getName()))
+                .sorted((file1, file2) -> {
+                    if (file1.getName().contains(new File(track.getName()).getName())) {
+                        return -1;
+                    }
+                    if (file2.getName().contains(new File(track.getName()).getName())) {
+                        return 1;
+                    }
+                    return file1.getAbsolutePath().compareTo(file2.getAbsolutePath());
+                })
                 .collect(Collectors.toList());
     }
 
