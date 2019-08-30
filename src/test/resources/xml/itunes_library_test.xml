@@ -43,7 +43,7 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/mnt/44D38A27637CE7D3/musiques/itunes/iTunes%20Media/Music/Ella%20Fitzgerald_Count%20Basie/Ella%20&#38;%20Basie!/09%20Shiny%20Stockings.mp3</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
@@ -76,7 +76,7 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/The%20Swing%20Session/Unknown%20Album/07%20Fly%20Me%20To%20The%20Moon.mp3</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_2.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
@@ -109,7 +109,7 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/Jamie%20Lancaster%20&#38;%20Karen%20Souza/Unknown%20Album/Billie%20Jean.mp3</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
 		</dict>
@@ -142,7 +142,7 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/Hal%20Leonard/Disney%20Classics%20-%20Vol%2010/04%20Cruella%20de%20Vil.mp3</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_2.mp3</string>
 			<key>Start Time</key><integer>0</integer>
 			<key>Stop Time</key><integer>131552</integer>
 			<key>File Folder Count</key><integer>5</integer>
