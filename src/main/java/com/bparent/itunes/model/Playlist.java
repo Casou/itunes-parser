@@ -48,8 +48,14 @@ public class Playlist extends ITunesNode {
     @ItunesProperty("Audiobooks")
     private Boolean audiobooks;
 
+    @ItunesProperty("Books")
+    private Boolean books;
+
     @ItunesProperty("Folder")
     private Boolean folder;
+
+    @ItunesProperty("iTunesU")
+    private Boolean itunesU;
 
     @ItunesProperty("Name")
     private String name;

@@ -21,7 +21,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -35,7 +35,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -58,7 +58,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -75,7 +75,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -92,7 +92,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -122,7 +122,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -142,7 +142,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -175,7 +175,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -195,7 +195,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -221,7 +221,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+        File f = new File("src/test/resources/xml/itunes_library_real.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -243,7 +243,7 @@ public class ItunesParserTest {
 //        ItunesParser itunesParser = new ItunesParser();
 //
 //        // When
-//        File f = new File("src/test/resources/xml/itunes_library_test.xml");
+//        File f = new File("src/test/resources/xml/itunes_library_real.xml");
 //        ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
 //
 //        f = new File("src/test/resources/xml/itunes_library_real.xml");
