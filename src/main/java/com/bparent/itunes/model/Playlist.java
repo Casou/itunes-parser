@@ -1,6 +1,7 @@
 package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
+import com.bparent.itunes.exporter.XmlExportable;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Playlist extends ITunesNode {
+public class Playlist extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Master")
-    private boolean master;
+    private Boolean master;
 
     @ItunesProperty("Playlist ID")
     private Integer playlistId;
@@ -123,4 +124,15 @@ public class Playlist extends ITunesNode {
         return items;
     }
 
+    @Override
+    public String toXml() {
+        String allProperties = propertiesToXml("\t\t\t");
+
+        return String.format(
+                        "\t\t<dict>\n"
+                        + "%s"
+                        + "\t\t</dict>",
+                allProperties
+        );
+    }
 }

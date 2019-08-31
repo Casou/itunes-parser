@@ -51,7 +51,7 @@ public class ItunesParserTest {
         assertEquals(Integer.valueOf(1), generalDict.getMinorVersion());
         assertEquals(LocalDateTime.of(2013, 9, 21, 9, 44, 21), generalDict.getDate());
         assertEquals("11.0.2", generalDict.getApplicationVersion());
-        assertTrue(generalDict.isShowContentRatings());
+        assertTrue(generalDict.getShowContentRatings());
         assertEquals("file://localhost/C:/Documents%20and%20Settings/Basile/Mes%20documents/Ma%20musique/iTunes/iTunes%20Media/", generalDict.getMusicFolder());
         assertEquals("049ADDA3FB4FA110", generalDict.getPersistentId());
     }
@@ -156,7 +156,7 @@ public class ItunesParserTest {
         GeneralDict generalDict = library.getPList().getDict();
         assertEquals(2, generalDict.getPlaylists().size());
 
-        assertFalse(generalDict.getPlaylists().get(0).isMaster());
+        assertFalse(generalDict.getPlaylists().get(0).getMaster());
         assertEquals("Test Folder", generalDict.getPlaylists().get(0).getName());
         assertEquals(Integer.valueOf(14525), generalDict.getPlaylists().get(0).getPlaylistId());
         assertEquals("42A45B8FD23FA86A", generalDict.getPlaylists().get(0).getPlaylistPersistentId());
@@ -164,7 +164,7 @@ public class ItunesParserTest {
         assertTrue(generalDict.getPlaylists().get(0).getAllItems());
         assertFalse(generalDict.getPlaylists().get(0).getVisible());
 
-        assertTrue(generalDict.getPlaylists().get(1).isMaster());
+        assertTrue(generalDict.getPlaylists().get(1).getMaster());
         assertEquals("Test Playlist", generalDict.getPlaylists().get(1).getName());
         assertEquals(Integer.valueOf(12345), generalDict.getPlaylists().get(1).getPlaylistId());
         assertEquals("3E6916F95560A2DD", generalDict.getPlaylists().get(1).getPlaylistPersistentId());

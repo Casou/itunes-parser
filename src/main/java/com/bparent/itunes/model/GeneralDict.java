@@ -1,6 +1,7 @@
 package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
+import com.bparent.itunes.exporter.XmlExportable;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -9,9 +10,10 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
-public class GeneralDict extends Dict {
+public class GeneralDict extends Dict implements XmlExportable {
 
     @ItunesProperty("Major Version")
     private Integer majorVersion;
@@ -29,7 +31,7 @@ public class GeneralDict extends Dict {
     private Integer features;
 
     @ItunesProperty("Show Content Ratings")
-    private boolean showContentRatings;
+    private Boolean showContentRatings;
 
     @ItunesProperty("Music Folder")
     private String musicFolder;
@@ -126,6 +128,28 @@ public class GeneralDict extends Dict {
             tracks.add(track);
         }
         return tracks;
+    }
+
+    @Override
+    public String toXml() {
+        String allProperties = propertiesToXml("\t");
+
+        return String.format(
+                "<dict>\n"
+                    + "%s"
+                    + "\t<key>Tracks</key>\n"
+                    + "\t<dict>\n"
+                        + "%s\n"
+                    + "\t</dict>\n"
+                    + "\t<key>Playlists</key>\n"
+                    + "\t<array>\n"
+                        + "%s\n"
+                    + "\t</array>\n"
+                + "</dict>",
+                allProperties,
+                this.tracks.stream().map(Track::toXml).collect(Collectors.joining("\n")),
+                this.playlists.stream().map(Playlist::toXml).collect(Collectors.joining("\n"))
+        );
     }
 
 }

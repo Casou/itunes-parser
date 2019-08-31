@@ -1,6 +1,7 @@
 package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
+import com.bparent.itunes.exporter.XmlExportable;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,7 +13,7 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 
 @Data
-public class Track extends ITunesNode {
+public class Track extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Track ID")
     protected Integer itunesId;
@@ -22,6 +23,12 @@ public class Track extends ITunesNode {
 
     @ItunesProperty("Total Time")
     protected Integer totalTime;
+
+    @ItunesProperty("Start Time")
+    protected Integer startTime;
+
+    @ItunesProperty("Stop Time")
+    protected Integer stopTime;
 
     @ItunesProperty("Disc Number")
     protected Integer discNumber;
@@ -53,6 +60,12 @@ public class Track extends ITunesNode {
     @ItunesProperty("Sample Rate")
     protected Integer sampleRate;
 
+    @ItunesProperty("Part Of Gapless Album")
+    protected Boolean partOfGaplessAlbum;
+
+    @ItunesProperty("Volume Adjustment")
+    protected Integer volumeAdjustment;
+
     @ItunesProperty("Play Count")
     protected Integer playCount;
 
@@ -68,6 +81,9 @@ public class Track extends ITunesNode {
     @ItunesProperty("Skip Date")
     protected LocalDateTime skipDate;
 
+    @ItunesProperty("Release Date")
+    protected LocalDateTime releaseDate;
+
     @ItunesProperty("Rating")
     protected Integer rating;
 
@@ -80,14 +96,23 @@ public class Track extends ITunesNode {
     @ItunesProperty("Album Rating Computed")
     protected Boolean albumRatingComputed;
 
+    @ItunesProperty("Compilation")
+    protected Boolean compilation;
+
     @ItunesProperty("Artwork Count")
     protected Integer artworkCount;
 
     @ItunesProperty("Persistent ID")
     protected String persistentId;
 
+    @ItunesProperty("Disabled")
+    protected Boolean disabled;
+
     @ItunesProperty("Track Type")
     protected String trackType;
+
+    @ItunesProperty("Purchased")
+    protected Boolean purchased;
 
     @ItunesProperty("File Folder Count")
     protected Integer fileFolderCount;
@@ -110,26 +135,17 @@ public class Track extends ITunesNode {
     @ItunesProperty("Album")
     protected String album;
 
+    @ItunesProperty("Grouping")
+    protected String grouping;
+
     @ItunesProperty("Genre")
-    protected String genres;
+    protected String genre;
 
     @ItunesProperty("Kind")
     protected String kind;
 
-    @ItunesProperty("Start Time")
-    protected Integer startTime;
-
-    @ItunesProperty("Stop Time")
-    protected Integer stopTime;
-
-    @ItunesProperty("Volume Adjustment")
-    protected Integer volumeAdjustment;
-
     @ItunesProperty("Comments")
     protected String comments;
-
-    @ItunesProperty("Sort Artist")
-    protected String sortArtist;
 
     @ItunesProperty("Sort Name")
     protected String sortName;
@@ -137,35 +153,20 @@ public class Track extends ITunesNode {
     @ItunesProperty("Sort Album")
     protected String sortAlbum;
 
+    @ItunesProperty("Sort Artist")
+    protected String sortArtist;
+
     @ItunesProperty("Sort Album Artist")
     protected String sortAlbumArtist;
 
     @ItunesProperty("Sort Composer")
     protected String sortComposer;
 
-    @ItunesProperty("Location")
-    protected String location;
-
     @ItunesProperty("Work")
     protected String work;
 
-    @ItunesProperty("Grouping")
-    protected String grouping;
-
-    @ItunesProperty("Disabled")
-    protected Boolean disabled;
-
-    @ItunesProperty("Purchased")
-    protected Boolean purchased;
-
-    @ItunesProperty("Compilation")
-    protected Boolean compilation;
-
-    @ItunesProperty("Part Of Gapless Album")
-    protected Boolean partOfGaplessAlbum;
-
-    @ItunesProperty("Release Date")
-    protected LocalDateTime releaseDate;
+    @ItunesProperty("Location")
+    protected String location;
 
     public Track(Node node) {
         super(node);
@@ -209,8 +210,18 @@ public class Track extends ITunesNode {
         }
     }
 
-//    public void checkFileMissing() {
-//        File f = new File(URI.decode(this.location.substring("file://localhost".length())));
-//        this.fileMissing = f.exists();
-//    }
+    @Override
+    public String toXml() {
+        String allProperties = propertiesToXml("\t\t\t");
+
+        return String.format(
+                "\t\t<key>%d</key>\n"
+                        + "\t\t<dict>\n"
+                        + "%s"
+                        + "\t\t</dict>",
+                this.itunesId,
+                allProperties
+        );
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
+import com.bparent.itunes.exporter.XmlExportable;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -8,7 +9,7 @@ import org.w3c.dom.NodeList;
 import java.lang.reflect.Field;
 
 @Data
-public class PlaylistItem extends ITunesNode {
+public class PlaylistItem extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Track ID")
     private Integer trackId;
@@ -43,4 +44,8 @@ public class PlaylistItem extends ITunesNode {
         }
     }
 
+    @Override
+    public String toXml() {
+        return null;
+    }
 }

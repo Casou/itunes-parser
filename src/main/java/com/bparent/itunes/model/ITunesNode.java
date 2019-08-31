@@ -101,4 +101,53 @@ public abstract class ITunesNode {
         return objectValue;
     }
 
+    protected String formatFieldToXml(Field field, Object value) {
+        if (Boolean.class.equals(field.getType())) {
+            Boolean boolValue = (Boolean) value;
+            if (boolValue) {
+                return "<true/>";
+            } else {
+                return "<false/>";
+            }
+        }
+        if (String.class.equals(field.getType())) {
+            return String.format("<string>%s</string>", value);
+        }
+
+        if (Integer.class.equals(field.getType()) || BigInteger.class.equals(field.getType())) {
+            return String.format("<integer>%s</integer>", value);
+        }
+
+        if (LocalDateTime.class.equals(field.getType())) {
+            return String.format("<date>%s</date>", value + "Z");
+        }
+
+        return String.format("<string>%s</string>", value);
+    }
+
+    protected String propertiesToXml(String decalage) {
+        StringBuilder allProperties = new StringBuilder();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            ItunesProperty annotation = field.getAnnotation(ItunesProperty.class);
+            if (annotation != null) {
+                boolean accessible = field.isAccessible();
+                try {
+                    field.setAccessible(true);
+                    Object value = field.get(this);
+                    if (value == null) {
+                        continue;
+                    }
+
+                    allProperties.append(String.format("%s<key>%s</key>%s\n", decalage, annotation.value(), formatFieldToXml(field, value)));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } finally {
+                    field.setAccessible(accessible);
+                }
+            }
+        }
+        return allProperties.toString();
+    }
+
 }

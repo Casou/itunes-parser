@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict attrb="test">
+<dict>
 	<key>Major Version</key><integer>1</integer>
 	<key>Minor Version</key><integer>1</integer>
 	<key>Date</key><date>2013-09-21T09:44:21Z</date>
@@ -15,13 +15,6 @@
 		<key>1</key>
 		<dict>
 			<key>Track ID</key><integer>1</integer>
-			<key>Name</key><string>Shiny Stockings</string>
-			<key>Artist</key><string>Ella Fitzgerald</string>
-			<key>Album Artist</key><string>??</string>
-			<key>Composer</key><string>??</string>
-			<key>Album</key><string>??</string>
-			<key>Genre</key><string>Lindy / Boogie</string>
-			<key>Kind</key><string>Fichier audio MPEG</string>
 			<key>Size</key><integer>2798233</integer>
 			<key>Total Time</key><integer>131552</integer>
 			<key>Start Time</key><integer>55</integer>
@@ -33,7 +26,6 @@
 			<key>Date Added</key><date>2012-07-15T13:38:38Z</date>
 			<key>Bit Rate</key><integer>165</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Comments</key><string>30 - Some comment</string>
 			<key>Play Count</key><integer>2</integer>
 			<key>Play Date</key><integer>3426768449</integer>
 			<key>Play Date UTC</key><date>2012-08-02T14:07:29Z</date>
@@ -43,20 +35,21 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
+			<key>Name</key><string>Shiny Stockings</string>
+			<key>Artist</key><string>Ella Fitzgerald</string>
+			<key>Album Artist</key><string>??</string>
+			<key>Composer</key><string>??</string>
+			<key>Album</key><string>??</string>
+			<key>Genre</key><string>Lindy / Boogie</string>
+			<key>Kind</key><string>Fichier audio MPEG</string>
+			<key>Comments</key><string>30 - Some comment</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3</string>
 		</dict>
 		<key>2</key>
 		<dict>
 			<key>Track ID</key><integer>2</integer>
-			<key>Name</key><string>Fly me to the moon</string>
-			<key>Artist</key><string>Frank Sinatra</string>
-			<key>Album Artist</key><string>Frank Sinatra</string>
-			<key>Composer</key><string>??</string>
-			<key>Album</key><string>??</string>
-			<key>Genre</key><string>Lindy</string>
-			<key>Kind</key><string>Fichier audio MPEG</string>
 			<key>Size</key><integer>2798233</integer>
 			<key>Total Time</key><integer>131552</integer>
 			<key>Track Number</key><integer>3</integer>
@@ -66,7 +59,6 @@
 			<key>Date Added</key><date>2012-07-15T13:38:38Z</date>
 			<key>Bit Rate</key><integer>165</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Comments</key><string>30</string>
 			<key>Play Count</key><integer>2</integer>
 			<key>Play Date</key><integer>3426768449</integer>
 			<key>Play Date UTC</key><date>2012-08-02T14:07:29Z</date>
@@ -76,20 +68,21 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_2.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
-		</dict>
-		<key>3</key>
-		<dict>
-			<key>Track ID</key><integer>3</integer>
-			<key>Name</key><string>Billie Jean</string>
-			<key>Artist</key><string>??</string>
-			<key>Album Artist</key><string>??</string>
+			<key>Name</key><string>Fly me to the moon</string>
+			<key>Artist</key><string>Frank Sinatra</string>
+			<key>Album Artist</key><string>Frank Sinatra</string>
 			<key>Composer</key><string>??</string>
 			<key>Album</key><string>??</string>
 			<key>Genre</key><string>Lindy</string>
 			<key>Kind</key><string>Fichier audio MPEG</string>
+			<key>Comments</key><string>30</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_2.mp3</string>
+		</dict>
+		<key>3</key>
+		<dict>
+			<key>Track ID</key><integer>3</integer>
 			<key>Size</key><integer>2798233</integer>
 			<key>Total Time</key><integer>131552</integer>
 			<key>Track Number</key><integer>3</integer>
@@ -99,7 +92,6 @@
 			<key>Date Added</key><date>2012-07-15T13:38:38Z</date>
 			<key>Bit Rate</key><integer>165</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Comments</key><string>31</string>
 			<key>Play Count</key><integer>2</integer>
 			<key>Play Date</key><integer>3426768449</integer>
 			<key>Play Date UTC</key><date>2012-08-02T14:07:29Z</date>
@@ -109,55 +101,70 @@
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3</string>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
-		</dict>
-		<key>4</key>
-		<dict>
-			<key>Track ID</key><integer>4</integer>
-			<key>Name</key><string>Cruella De Vil</string>
+			<key>Name</key><string>Billie Jean</string>
 			<key>Artist</key><string>??</string>
 			<key>Album Artist</key><string>??</string>
 			<key>Composer</key><string>??</string>
 			<key>Album</key><string>??</string>
 			<key>Genre</key><string>Lindy</string>
 			<key>Kind</key><string>Fichier audio MPEG</string>
+			<key>Comments</key><string>31</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_1.mp3</string>
+		</dict>
+		<key>4</key>
+		<dict>
+			<key>Track ID</key><integer>4</integer>
 			<key>Size</key><integer>2798233</integer>
 			<key>Total Time</key><integer>131552</integer>
-			<key>Track Number</key><integer>3</integer>
+			<key>Start Time</key><integer>0</integer>
+			<key>Stop Time</key><integer>131552</integer>
+			<key>Disc Number</key><integer>1</integer>
+			<key>Disc Count</key><integer>1</integer>
+			<key>Track Number</key><integer>2</integer>
+			<key>Track Count</key><integer>10</integer>
 			<key>Year</key><integer>1990</integer>
 			<key>BPM</key><integer>128</integer>
 			<key>Date Modified</key><date>2012-12-24T13:54:56Z</date>
 			<key>Date Added</key><date>2012-07-15T13:38:38Z</date>
 			<key>Bit Rate</key><integer>165</integer>
 			<key>Sample Rate</key><integer>44100</integer>
-			<key>Comments</key><string>32</string>
 			<key>Play Count</key><integer>2</integer>
 			<key>Play Date</key><integer>3426768449</integer>
 			<key>Play Date UTC</key><date>2012-08-02T14:07:29Z</date>
+			<key>Skip Count</key><integer>3</integer>
+			<key>Skip Date</key><date>2015-05-26T20:52:07Z</date>
 			<key>Rating</key><integer>100</integer>
 			<key>Album Rating</key><integer>60</integer>
 			<key>Album Rating Computed</key><true/>
 			<key>Artwork Count</key><integer>1</integer>
 			<key>Persistent ID</key><string>779C9DFDEAFB20A7</string>
 			<key>Track Type</key><string>File</string>
-			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_2.mp3</string>
-			<key>Start Time</key><integer>0</integer>
-			<key>Stop Time</key><integer>131552</integer>
 			<key>File Folder Count</key><integer>5</integer>
 			<key>Library Folder Count</key><integer>1</integer>
+			<key>Name</key><string>Cruella De Vil</string>
+			<key>Artist</key><string>??</string>
+			<key>Album Artist</key><string>??</string>
+			<key>Composer</key><string>??</string>
+			<key>Album</key><string>Mon album</string>
+			<key>Genre</key><string>Lindy</string>
+			<key>Kind</key><string>Fichier audio MPEG</string>
+			<key>Comments</key><string>32</string>
+			<key>Sort Name</key><string>Même que Moi</string>
+			<key>Sort Album</key><string>même que moi</string>
+			<key>Location</key><string>file://localhost/D:/musiques/itunes/iTunes%20Media/Music/missing_music_2.mp3</string>
 		</dict>
 	</dict>
 	<key>Playlists</key>
 	<array>
 		<dict>
 			<key>Master</key><false/>
-			<key>Name</key><string>Test Folder</string>
 			<key>Playlist ID</key><integer>14525</integer>
 			<key>Playlist Persistent ID</key><string>42A45B8FD23FA86A</string>
 			<key>All Items</key><true/>
 			<key>Visible</key><false/>
+			<key>Name</key><string>Test Folder</string>
 			<key>Playlist Items</key>
 			<array>
 				<dict>
@@ -170,12 +177,12 @@
 		</dict>
 		<dict>
 			<key>Master</key><true/>
-			<key>Name</key><string>Test Playlist</string>
 			<key>Playlist ID</key><integer>12345</integer>
 			<key>Playlist Persistent ID</key><string>3E6916F95560A2DD</string>
 			<key>Parent Persistent ID</key><string>42A45B8FD23FA86A</string>
 			<key>All Items</key><true/>
 			<key>Visible</key><true/>
+			<key>Name</key><string>Test Playlist</string>
 			<key>Smart Info</key>
 			<data>
 				AQEAAwAAAAIAAAAZAAAAAAAAAAcAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
