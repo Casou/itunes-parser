@@ -11,7 +11,7 @@ import org.w3c.dom.NodeList;
 import java.lang.reflect.Field;
 
 @Data
-public class PlaylistItem extends ITunesNode implements XmlExportable {
+public class PlaylistItem extends Dict implements XmlExportable {
 
     @ItunesProperty("Track ID")
     private XmlInteger trackId;
@@ -44,16 +44,5 @@ public class PlaylistItem extends ITunesNode implements XmlExportable {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public String toXml() {
-        String allProperties = propertiesToXml("\t\t\t\t\t");
-
-        return String.format(
-                "\t\t\t\t<dict>\n"
-                        + "%s\n"
-                        + "\t\t\t\t</dict>",
-                allProperties);
     }
 }

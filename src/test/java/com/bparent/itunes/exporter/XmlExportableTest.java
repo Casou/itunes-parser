@@ -18,11 +18,11 @@ class XmlExportableTest {
     @Test
     void toXml_should_produce_xml_file_identical_from_itunes() throws IOException, SAXException, ParserConfigurationException {
         ItunesParser parser = new ItunesParser();
-        String xmlFilePath = "src/test/resources/xml/itunes_library_test.xml";
+        String xmlFilePath = "src/test/resources/xml/itunes_library_real.xml";
         String originalFileContent = String.join("\n", Files.readAllLines(Paths.get(xmlFilePath), Charset.defaultCharset()));
 
         ITunesLibrary iTunesLibrary = parser.load(xmlFilePath);
-        String generatedXml = iTunesLibrary.toXml();
+        String generatedXml = iTunesLibrary.toXml("");
 
         assertEquals(originalFileContent, generatedXml);
     }

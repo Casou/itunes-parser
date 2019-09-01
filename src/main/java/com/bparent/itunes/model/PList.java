@@ -40,9 +40,14 @@ public class PList extends ITunesNode implements XmlExportable {
     }
 
     @Override
-    public String toXml() {
-        return String.format("<plist version=\"%s\">\n" +
+    public String toXml(String paddingLeft) {
+        return String.format("%s<plist version=\"%s\">\n" +
                 "%s\n" +
-                "</plist>", this.version, this.dict.toXml());
+                "%s</plist>",
+                paddingLeft,
+                this.version,
+                this.dict.toXml(paddingLeft),
+                paddingLeft
+        );
     }
 }

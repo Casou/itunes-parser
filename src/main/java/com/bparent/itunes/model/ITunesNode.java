@@ -138,7 +138,7 @@ public abstract class ITunesNode {
                                 annotation.value(),
                                 paddingLeft,
                                 listAnnotation.value(),
-                                childNodes.stream().map(XmlExportable::toXml).collect(Collectors.joining("\n")),
+                                childNodes.stream().map(node -> node.toXml(paddingLeft + "\t")).collect(Collectors.joining("\n")),
                                 paddingLeft,
                                 listAnnotation.value()
                         ));

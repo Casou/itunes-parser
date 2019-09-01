@@ -2,7 +2,6 @@ package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesList;
 import com.bparent.itunes.annotations.ItunesProperty;
-import com.bparent.itunes.exporter.XmlExportable;
 import com.bparent.itunes.type.*;
 import lombok.Data;
 import org.w3c.dom.Node;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class GeneralDict extends Dict implements XmlExportable {
+public class GeneralDict extends Dict {
 
     @ItunesProperty("Major Version")
     private XmlInteger majorVersion;
@@ -132,18 +131,6 @@ public class GeneralDict extends Dict implements XmlExportable {
             tracks.add(track);
         }
         return tracks;
-    }
-
-    @Override
-    public String toXml() {
-        String allProperties = propertiesToXml("\t");
-
-        return String.format(
-                "<dict>\n"
-                    + "%s\n"
-                + "</dict>",
-                allProperties
-        );
     }
 
 }

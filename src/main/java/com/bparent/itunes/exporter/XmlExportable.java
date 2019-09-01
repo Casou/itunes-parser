@@ -2,6 +2,6 @@ package com.bparent.itunes.exporter;
 
 public interface XmlExportable {
 
-    String toXml();
+    String toXml(String paddingLeft);
 
 }

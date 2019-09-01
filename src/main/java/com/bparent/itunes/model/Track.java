@@ -210,16 +210,19 @@ public class Track extends ITunesNode implements XmlExportable {
     }
 
     @Override
-    public String toXml() {
-        String allProperties = propertiesToXml("\t\t\t");
+    public String toXml(String paddingLeft) {
+        String allProperties = propertiesToXml(paddingLeft + "\t");
 
         return String.format(
-                "\t\t<key>%d</key>\n"
-                        + "\t\t<dict>\n"
+                "%s<key>%d</key>\n"
+                        + "%s<dict>\n"
                         + "%s\n"
-                        + "\t\t</dict>",
+                        + "%s</dict>",
+                paddingLeft,
                 this.itunesId.getValue(),
-                allProperties
+                paddingLeft,
+                allProperties,
+                paddingLeft
         );
     }
 

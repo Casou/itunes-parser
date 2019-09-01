@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Playlist extends ITunesNode implements XmlExportable {
+public class Playlist extends Dict implements XmlExportable {
 
     @ItunesProperty("Master")
     private XmlBoolean master;
@@ -128,15 +128,4 @@ public class Playlist extends ITunesNode implements XmlExportable {
         return items;
     }
 
-    @Override
-    public String toXml() {
-        String allProperties = propertiesToXml("\t\t\t");
-
-        return String.format(
-                "\t\t<dict>\n"
-                        + "%s\n"
-                        + "\t\t</dict>",
-                allProperties
-        );
-    }
 }
