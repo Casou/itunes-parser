@@ -1,7 +1,9 @@
 package com.bparent.itunes.model;
 
+import com.bparent.itunes.annotations.ItunesList;
 import com.bparent.itunes.annotations.ItunesProperty;
 import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.*;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -14,60 +16,62 @@ import java.util.List;
 public class Playlist extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Master")
-    private Boolean master;
+    private XmlBoolean master;
 
     @ItunesProperty("Playlist ID")
-    private Integer playlistId;
-
-    @ItunesProperty("Playlist Persistent ID")
-    private String playlistPersistentId;
+    private XmlInteger playlistId;
 
     @ItunesProperty("Parent Persistent ID")
-    private String parentPersistentId;
+    private XmlString parentPersistentId;
+
+    @ItunesProperty("Playlist Persistent ID")
+    private XmlString playlistPersistentId;
 
     @ItunesProperty("Distinguished Kind")
-    private Integer distinguishedKind;
-
-    @ItunesProperty("All Items")
-    private Boolean allItems;
-
-    @ItunesProperty("Visible")
-    private Boolean visible;
+    private XmlInteger distinguishedKind;
 
     @ItunesProperty("Movies")
-    private Boolean movies;
+    private XmlBoolean movies;
 
     @ItunesProperty("Music")
-    private Boolean music;
+    private XmlBoolean music;
 
     @ItunesProperty("TV Shows")
-    private Boolean tvShows;
+    private XmlBoolean tvShows;
 
     @ItunesProperty("Podcasts")
-    private Boolean podcasts;
+    private XmlBoolean podcasts;
 
     @ItunesProperty("Audiobooks")
-    private Boolean audiobooks;
+    private XmlBoolean audiobooks;
 
     @ItunesProperty("Books")
-    private Boolean books;
-
-    @ItunesProperty("Folder")
-    private Boolean folder;
+    private XmlBoolean books;
 
     @ItunesProperty("iTunesU")
-    private Boolean itunesU;
+    private XmlBoolean itunesU;
+
+    @ItunesProperty("All Items")
+    private XmlBoolean allItems;
+
+    @ItunesProperty("Visible")
+    private XmlBoolean visible;
+
+    @ItunesProperty("Folder")
+    private XmlBoolean folder;
 
     @ItunesProperty("Name")
-    private String name;
+    private XmlString name;
 
     @ItunesProperty("Smart Info")
-    private String smartInfo;
+    private XmlData smartInfo;
 
     @ItunesProperty("Smart Criteria")
-    private String smartCriteria;
+    private XmlData smartCriteria;
 
-    private List<PlaylistItem> items;
+    @ItunesProperty("Playlist Items")
+    @ItunesList("array")
+    private List<PlaylistItem> items = new ArrayList<>();
 
     public Playlist(Node node) {
         super(node);
@@ -94,7 +98,7 @@ public class Playlist extends ITunesNode implements XmlExportable {
             }
 
             Field field = this.getFieldFromItunes(key);
-            Object childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
+            XmlType childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
 
             if (field == null) {
                 this.extraProperties.put(key, childValue);
@@ -129,8 +133,8 @@ public class Playlist extends ITunesNode implements XmlExportable {
         String allProperties = propertiesToXml("\t\t\t");
 
         return String.format(
-                        "\t\t<dict>\n"
-                        + "%s"
+                "\t\t<dict>\n"
+                        + "%s\n"
                         + "\t\t</dict>",
                 allProperties
         );

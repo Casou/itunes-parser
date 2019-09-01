@@ -2,171 +2,170 @@ package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
 import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.*;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.net.URLDecoder;
-import java.time.LocalDateTime;
 
 @Data
 public class Track extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Track ID")
-    protected Integer itunesId;
+    private XmlInteger itunesId;
 
     @ItunesProperty("Size")
-    protected Integer size;
+    private XmlInteger size;
 
     @ItunesProperty("Total Time")
-    protected Integer totalTime;
+    private XmlInteger totalTime;
 
     @ItunesProperty("Start Time")
-    protected Integer startTime;
+    private XmlInteger startTime;
 
     @ItunesProperty("Stop Time")
-    protected Integer stopTime;
+    private XmlInteger stopTime;
 
     @ItunesProperty("Disc Number")
-    protected Integer discNumber;
+    private XmlInteger discNumber;
 
     @ItunesProperty("Disc Count")
-    protected Integer discCount;
+    private XmlInteger discCount;
 
     @ItunesProperty("Track Number")
-    protected Integer trackNumber;
+    private XmlInteger trackNumber;
 
     @ItunesProperty("Track Count")
-    protected Integer trackCount;
+    private XmlInteger trackCount;
 
     @ItunesProperty("Year")
-    protected Integer year;
+    private XmlInteger year;
 
     @ItunesProperty("BPM")
-    protected Integer bpm;
+    private XmlInteger bpm;
 
     @ItunesProperty("Date Modified")
-    protected LocalDateTime dateModified;
+    private XmlDate dateModified;
 
     @ItunesProperty("Date Added")
-    protected LocalDateTime dateAdded;
+    private XmlDate dateAdded;
 
     @ItunesProperty("Bit Rate")
-    protected Integer bitRate;
+    private XmlInteger bitRate;
 
     @ItunesProperty("Sample Rate")
-    protected Integer sampleRate;
+    private XmlInteger sampleRate;
 
     @ItunesProperty("Part Of Gapless Album")
-    protected Boolean partOfGaplessAlbum;
+    private XmlBoolean partOfGaplessAlbum;
 
     @ItunesProperty("Volume Adjustment")
-    protected Integer volumeAdjustment;
+    private XmlInteger volumeAdjustment;
 
     @ItunesProperty("Play Count")
-    protected Integer playCount;
+    private XmlInteger playCount;
 
     @ItunesProperty("Play Date")
-    protected BigInteger playDate;
+    private XmlInteger playDate;
 
     @ItunesProperty("Play Date UTC")
-    protected LocalDateTime playDateUTC;
+    private XmlDate playDateUTC;
 
     @ItunesProperty("Skip Count")
-    protected Integer skipCount;
+    private XmlInteger skipCount;
 
     @ItunesProperty("Skip Date")
-    protected LocalDateTime skipDate;
+    private XmlDate skipDate;
 
     @ItunesProperty("Release Date")
-    protected LocalDateTime releaseDate;
+    private XmlDate releaseDate;
 
     @ItunesProperty("Rating")
-    protected Integer rating;
+    private XmlInteger rating;
 
     @ItunesProperty("Rating Computed")
-    protected Boolean ratingComputed;
+    private XmlBoolean ratingComputed;
 
     @ItunesProperty("Album Rating")
-    protected Integer albumRating;
+    private XmlInteger albumRating;
 
     @ItunesProperty("Album Rating Computed")
-    protected Boolean albumRatingComputed;
+    private XmlBoolean albumRatingComputed;
 
     @ItunesProperty("Compilation")
-    protected Boolean compilation;
+    private XmlBoolean compilation;
 
     @ItunesProperty("Artwork Count")
-    protected Integer artworkCount;
+    private XmlInteger artworkCount;
 
     @ItunesProperty("Persistent ID")
-    protected String persistentId;
+    private XmlString persistentId;
 
     @ItunesProperty("Disabled")
-    protected Boolean disabled;
+    private XmlBoolean disabled;
 
     @ItunesProperty("Track Type")
-    protected String trackType;
+    private XmlString trackType;
 
     @ItunesProperty("Purchased")
-    protected Boolean purchased;
+    private XmlBoolean purchased;
 
     @ItunesProperty("File Folder Count")
-    protected Integer fileFolderCount;
+    private XmlInteger fileFolderCount;
 
     @ItunesProperty("Library Folder Count")
-    protected Integer libraryFolderCount;
+    private XmlInteger libraryFolderCount;
 
     @ItunesProperty("Name")
-    protected String name;
+    private XmlString name;
 
     @ItunesProperty("Artist")
-    protected String artist;
+    private XmlString artist;
 
     @ItunesProperty("Album Artist")
-    protected String albumArtist;
+    private XmlString albumArtist;
 
     @ItunesProperty("Composer")
-    protected String composer;
+    private XmlString composer;
 
     @ItunesProperty("Album")
-    protected String album;
+    private XmlString album;
 
     @ItunesProperty("Grouping")
-    protected String grouping;
+    private XmlString grouping;
 
     @ItunesProperty("Genre")
-    protected String genre;
+    private XmlString genre;
 
     @ItunesProperty("Kind")
-    protected String kind;
+    private XmlString kind;
 
     @ItunesProperty("Comments")
-    protected String comments;
+    private XmlString comments;
 
     @ItunesProperty("Sort Name")
-    protected String sortName;
+    private XmlString sortName;
 
     @ItunesProperty("Sort Album")
-    protected String sortAlbum;
+    private XmlString sortAlbum;
 
     @ItunesProperty("Sort Artist")
-    protected String sortArtist;
+    private XmlString sortArtist;
 
     @ItunesProperty("Sort Album Artist")
-    protected String sortAlbumArtist;
+    private XmlString sortAlbumArtist;
 
     @ItunesProperty("Sort Composer")
-    protected String sortComposer;
+    private XmlString sortComposer;
 
     @ItunesProperty("Work")
-    protected String work;
+    private XmlString work;
 
     @ItunesProperty("Location")
-    protected String location;
+    private XmlString location;
 
     public Track(Node node) {
         super(node);
@@ -184,7 +183,7 @@ public class Track extends ITunesNode implements XmlExportable {
 
             String key = nodeKey.getChildNodes().item(0).getNodeValue();
             Field field = this.getFieldFromItunes(key);
-            Object childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
+            XmlType childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
 
             if (field == null) {
                 this.extraProperties.put(key, childValue);
@@ -203,7 +202,7 @@ public class Track extends ITunesNode implements XmlExportable {
             return null;
         }
         try {
-            return URLDecoder.decode(this.location, "UTF-8");
+            return URLDecoder.decode(this.location.getValue(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
@@ -217,9 +216,9 @@ public class Track extends ITunesNode implements XmlExportable {
         return String.format(
                 "\t\t<key>%d</key>\n"
                         + "\t\t<dict>\n"
-                        + "%s"
+                        + "%s\n"
                         + "\t\t</dict>",
-                this.itunesId,
+                this.itunesId.getValue(),
                 allProperties
         );
     }

@@ -1,16 +1,20 @@
 package com.bparent.itunes.model;
 
+import com.bparent.itunes.annotations.ItunesList;
 import com.bparent.itunes.annotations.ItunesProperty;
+import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.*;
 import lombok.Data;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.lang.reflect.Field;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Data
 public abstract class ITunesNode {
@@ -24,11 +28,9 @@ public abstract class ITunesNode {
     protected static final String TYPE_STRING = "string";
     protected static final String TYPE_INTEGER = "integer";
     protected static final String TYPE_DATE = "date";
+    protected static final String TYPE_DATA = "data";
     protected static final String TYPE_BOOLEAN_TRUE = "true";
     protected static final String TYPE_BOOLEAN_FALSE = "false";
-
-    private static final String DATE_TIME_FORMATTER_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN);
 
     protected Node node;
     protected Map<String, Object> extraProperties;
@@ -45,18 +47,18 @@ public abstract class ITunesNode {
 
             try {
                 this.setField(item.getNodeName(), item.getNodeValue());
-            } catch (IllegalAccessException | NoSuchFieldException e) {
+            } catch (IllegalAccessException | NoSuchFieldException | InvocationTargetException | InstantiationException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    protected void setField(String fieldName, Object fieldValue) throws IllegalAccessException, NoSuchFieldException {
+    protected void setField(String fieldName, String fieldValue) throws IllegalAccessException, NoSuchFieldException, InvocationTargetException, InstantiationException {
         Field field = this.getClass().getDeclaredField(fieldName);
-        this.setField(field, fieldValue);
+        this.setField(field, getXmlType(field, fieldValue));
     }
 
-    protected void setField(Field field, Object fieldValue) throws IllegalAccessException {
+    protected void setField(Field field, XmlType fieldValue) throws IllegalAccessException {
         boolean accessible = field.isAccessible();
         try {
             field.setAccessible(true);
@@ -64,6 +66,10 @@ public abstract class ITunesNode {
         } finally {
             field.setAccessible(accessible);
         }
+    }
+
+    protected XmlType getXmlType(Field field, String fieldValue) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        return (XmlType) field.getType().getDeclaredConstructors()[0].newInstance(fieldValue);
     }
 
     protected Field getFieldFromItunes(String itunesProperty) {
@@ -79,54 +85,29 @@ public abstract class ITunesNode {
         return null;
     }
 
-    protected Object getChildValue(String objectType, Node child) {
+    protected XmlType getChildValue(String objectType, Node child) {
         if (TYPE_BOOLEAN_FALSE.equals(objectType)) {
-            return Boolean.FALSE;
+            return XmlBoolean.FALSE;
         }
         if (TYPE_BOOLEAN_TRUE.equals(objectType)) {
-            return Boolean.TRUE;
+            return XmlBoolean.TRUE;
         }
 
         String objectValue = child.getChildNodes().item(0).getNodeValue();
         if (TYPE_INTEGER.equals(objectType)) {
-            try {
-                return new Integer(objectValue);
-            } catch (NumberFormatException e) {
-                return new BigInteger(objectValue);
-            }
+            return new XmlInteger(objectValue);
         }
         if (TYPE_DATE.equals(objectType)) {
-            return LocalDateTime.parse(objectValue, DATE_TIME_FORMATTER);
+            return new XmlDate(objectValue);
         }
-        return objectValue;
+        if (TYPE_DATA.equals(objectType)) {
+            return new XmlData(objectValue.trim());
+        }
+        return new XmlString(objectValue);
     }
 
-    protected String formatFieldToXml(Field field, Object value) {
-        if (Boolean.class.equals(field.getType())) {
-            Boolean boolValue = (Boolean) value;
-            if (boolValue) {
-                return "<true/>";
-            } else {
-                return "<false/>";
-            }
-        }
-        if (String.class.equals(field.getType())) {
-            return String.format("<string>%s</string>", value);
-        }
-
-        if (Integer.class.equals(field.getType()) || BigInteger.class.equals(field.getType())) {
-            return String.format("<integer>%s</integer>", value);
-        }
-
-        if (LocalDateTime.class.equals(field.getType())) {
-            return String.format("<date>%s</date>", value + "Z");
-        }
-
-        return String.format("<string>%s</string>", value);
-    }
-
-    protected String propertiesToXml(String decalage) {
-        StringBuilder allProperties = new StringBuilder();
+    protected String propertiesToXml(String paddingLeft) {
+        List<String> allProperties = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
             ItunesProperty annotation = field.getAnnotation(ItunesProperty.class);
@@ -139,7 +120,36 @@ public abstract class ITunesNode {
                         continue;
                     }
 
-                    allProperties.append(String.format("%s<key>%s</key>%s\n", decalage, annotation.value(), formatFieldToXml(field, value)));
+                    if (field.getType().equals(List.class)) {
+                        ItunesList listAnnotation = field.getAnnotation(ItunesList.class);
+                        if (listAnnotation == null) {
+                            System.err.println("Impossible to format list " + field.getName() + " to xml without @ItunesList property");
+                            continue;
+                        }
+                        List<XmlExportable> childNodes = (List<XmlExportable>) value;
+                        if (childNodes.isEmpty()) {
+                            continue;
+                        }
+                        allProperties.add(String.format("%s<key>%s</key>" +
+                                        "\n%s<%s>\n" +
+                                        "%s\n" +
+                                        "%s</%s>",
+                                paddingLeft,
+                                annotation.value(),
+                                paddingLeft,
+                                listAnnotation.value(),
+                                childNodes.stream().map(XmlExportable::toXml).collect(Collectors.joining("\n")),
+                                paddingLeft,
+                                listAnnotation.value()
+                        ));
+                        continue;
+                    }
+
+                    XmlType xmlTypeValue = (XmlType) value;
+                    allProperties.add(String.format("%s<key>%s</key>%s",
+                            paddingLeft,
+                            annotation.value(),
+                            xmlTypeValue.toXml(paddingLeft)));
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } finally {
@@ -147,7 +157,7 @@ public abstract class ITunesNode {
                 }
             }
         }
-        return allProperties.toString();
+        return String.join("\n", allProperties);
     }
 
 }

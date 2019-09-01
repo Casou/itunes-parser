@@ -1,6 +1,7 @@
 package com.bparent.itunes.model;
 
 import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.XmlString;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,7 +11,7 @@ import java.util.Optional;
 @Data
 public class PList extends ITunesNode implements XmlExportable {
 
-    private String version;
+    private XmlString version;
     private GeneralDict dict;
 
     public PList(Node node) {

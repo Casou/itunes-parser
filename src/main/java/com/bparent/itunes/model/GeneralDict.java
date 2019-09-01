@@ -1,47 +1,51 @@
 package com.bparent.itunes.model;
 
+import com.bparent.itunes.annotations.ItunesList;
 import com.bparent.itunes.annotations.ItunesProperty;
 import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.*;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class GeneralDict extends Dict implements XmlExportable {
 
     @ItunesProperty("Major Version")
-    private Integer majorVersion;
+    private XmlInteger majorVersion;
 
     @ItunesProperty("Minor Version")
-    private Integer minorVersion;
-
-    @ItunesProperty("Date")
-    private LocalDateTime date;
+    private XmlInteger minorVersion;
 
     @ItunesProperty("Application Version")
-    private String applicationVersion;
+    private XmlString applicationVersion;
+
+    @ItunesProperty("Date")
+    private XmlDate date;
 
     @ItunesProperty("Features")
-    private Integer features;
+    private XmlInteger features;
 
     @ItunesProperty("Show Content Ratings")
-    private Boolean showContentRatings;
-
-    @ItunesProperty("Music Folder")
-    private String musicFolder;
+    private XmlBoolean showContentRatings;
 
     @ItunesProperty("Library Persistent ID")
-    private String persistentId;
+    private XmlString persistentId;
 
+    @ItunesProperty("Tracks")
+    @ItunesList("dict")
     private List<Track> tracks;
 
+    @ItunesProperty("Playlists")
+    @ItunesList("array")
     private List<Playlist> playlists;
+
+    @ItunesProperty("Music Folder")
+    private XmlString musicFolder;
 
     public GeneralDict(Node node) {
         super(node);
@@ -72,7 +76,7 @@ public class GeneralDict extends Dict implements XmlExportable {
                         }
                     } else {
                         Field field = this.getFieldFromItunes(currentKey);
-                        Object childValue = this.getChildValue(nodeName, child);
+                        XmlType childValue = this.getChildValue(nodeName, child);
                         if (field == null) {
                             // System.err.println(String.format("Field %s not found for general dict object", currentKey));
                             this.extraProperties.put(currentKey, childValue);
@@ -136,19 +140,9 @@ public class GeneralDict extends Dict implements XmlExportable {
 
         return String.format(
                 "<dict>\n"
-                    + "%s"
-                    + "\t<key>Tracks</key>\n"
-                    + "\t<dict>\n"
-                        + "%s\n"
-                    + "\t</dict>\n"
-                    + "\t<key>Playlists</key>\n"
-                    + "\t<array>\n"
-                        + "%s\n"
-                    + "\t</array>\n"
+                    + "%s\n"
                 + "</dict>",
-                allProperties,
-                this.tracks.stream().map(Track::toXml).collect(Collectors.joining("\n")),
-                this.playlists.stream().map(Playlist::toXml).collect(Collectors.joining("\n"))
+                allProperties
         );
     }
 

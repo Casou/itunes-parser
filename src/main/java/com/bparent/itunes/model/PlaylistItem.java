@@ -2,6 +2,8 @@ package com.bparent.itunes.model;
 
 import com.bparent.itunes.annotations.ItunesProperty;
 import com.bparent.itunes.exporter.XmlExportable;
+import com.bparent.itunes.type.XmlInteger;
+import com.bparent.itunes.type.XmlType;
 import lombok.Data;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -12,7 +14,7 @@ import java.lang.reflect.Field;
 public class PlaylistItem extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Track ID")
-    private Integer trackId;
+    private XmlInteger trackId;
 
     public PlaylistItem(Node node) {
         super(node);
@@ -30,7 +32,7 @@ public class PlaylistItem extends ITunesNode implements XmlExportable {
 
             String key = nodeKey.getChildNodes().item(0).getNodeValue();
             Field field = this.getFieldFromItunes(key);
-            Object childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
+            XmlType childValue = this.getChildValue(nodeValue.getNodeName(), nodeValue);
 
             if (field == null) {
                 this.extraProperties.put(key, childValue);
@@ -46,6 +48,12 @@ public class PlaylistItem extends ITunesNode implements XmlExportable {
 
     @Override
     public String toXml() {
-        return null;
+        String allProperties = propertiesToXml("\t\t\t\t\t");
+
+        return String.format(
+                "\t\t\t\t<dict>\n"
+                        + "%s\n"
+                        + "\t\t\t\t</dict>",
+                allProperties);
     }
 }

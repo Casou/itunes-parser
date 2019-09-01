@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +26,12 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
         assertNotNull(library.getPList());
-        assertEquals("1.0", library.getPList().getVersion());
+        assertEquals("1.0", library.getPList().getVersion().getValue());
     }
 
     @Test
@@ -39,7 +40,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -47,13 +48,13 @@ public class ItunesParserTest {
         assertNotNull(library.getPList().getDict());
 
         GeneralDict generalDict = library.getPList().getDict();
-        assertEquals(Integer.valueOf(1), generalDict.getMajorVersion());
-        assertEquals(Integer.valueOf(1), generalDict.getMinorVersion());
-        assertEquals(LocalDateTime.of(2013, 9, 21, 9, 44, 21), generalDict.getDate());
-        assertEquals("11.0.2", generalDict.getApplicationVersion());
-        assertTrue(generalDict.getShowContentRatings());
-        assertEquals("file://localhost/C:/Documents%20and%20Settings/Basile/Mes%20documents/Ma%20musique/iTunes/iTunes%20Media/", generalDict.getMusicFolder());
-        assertEquals("049ADDA3FB4FA110", generalDict.getPersistentId());
+        assertEquals(BigInteger.valueOf(1), generalDict.getMajorVersion().getValue());
+        assertEquals(BigInteger.valueOf(1), generalDict.getMinorVersion().getValue());
+        assertEquals(LocalDateTime.of(2013, 9, 21, 9, 44, 21), generalDict.getDate().getValue());
+        assertEquals("11.0.2", generalDict.getApplicationVersion().getValue());
+        assertTrue(generalDict.getShowContentRatings().getValue());
+        assertEquals("file://localhost/C:/Documents%20and%20Settings/Basile/Mes%20documents/Ma%20musique/iTunes/iTunes%20Media/", generalDict.getMusicFolder().getValue());
+        assertEquals("049ADDA3FB4FA110", generalDict.getPersistentId().getValue());
     }
 
     @Test
@@ -62,7 +63,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -79,7 +80,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -96,7 +97,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -106,18 +107,18 @@ public class ItunesParserTest {
         GeneralDict generalDict = library.getPList().getDict();
         Track track = generalDict.getTracks().get(0);
 
-        assertEquals(Integer.valueOf(1), track.getItunesId());
-        assertEquals("Shiny Stockings", track.getName());
-        assertEquals("Ella Fitzgerald", track.getArtist());
-        assertEquals(Integer.valueOf(131552), track.getTotalTime());
-        assertEquals(Integer.valueOf(55), track.getStartTime());
-        assertEquals(Integer.valueOf(131000), track.getStopTime());
-        assertEquals(Integer.valueOf(120), track.getBpm());
-        assertEquals(Integer.valueOf(80), track.getRating());
-        assertEquals(Integer.valueOf(1990), track.getYear());
-        assertEquals("30 - Some comment", track.getComments());
-        assertEquals("file://localhost/mnt/44D38A27637CE7D3/musiques/itunes/iTunes%20Media/Music/Ella%20Fitzgerald_Count%20Basie/Ella%20&%20Basie!/09%20Shiny%20Stockings.mp3", track.getLocation());
-        assertEquals(LocalDateTime.of(2012, 12, 24, 13, 54, 56), track.getDateModified());
+        assertEquals(BigInteger.valueOf(1), track.getItunesId().getValue());
+        assertEquals("Shiny Stockings", track.getName().getValue());
+        assertEquals("Ella Fitzgerald & Someone Else", track.getArtist().getValue());
+        assertEquals(BigInteger.valueOf(131552), track.getTotalTime().getValue());
+        assertEquals(BigInteger.valueOf(55), track.getStartTime().getValue());
+        assertEquals(BigInteger.valueOf(131000), track.getStopTime().getValue());
+        assertEquals(BigInteger.valueOf(120), track.getBpm().getValue());
+        assertEquals(BigInteger.valueOf(80), track.getRating().getValue());
+        assertEquals(BigInteger.valueOf(1990), track.getYear().getValue());
+        assertEquals("30 - Some comment", track.getComments().getValue());
+        assertEquals("file://localhost/D:/musiques/itunes/iTunes%20Media/Music/void_music_1.mp3", track.getLocation().getValue());
+        assertEquals(LocalDateTime.of(2012, 12, 24, 13, 54, 56), track.getDateModified().getValue());
     }
 
     @Test
@@ -126,7 +127,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -137,7 +138,7 @@ public class ItunesParserTest {
 
         generalDict.getTracks().forEach(track ->
                 assertEquals(0, track.getExtraProperties().size(),
-                        String.format("Erreur sur la track %d : %s", track.getItunesId(), track.getExtraProperties().toString())));
+                        String.format("Erreur sur la track %d : %s", track.getItunesId().getValue(), track.getExtraProperties().toString())));
     }
 
     @Test
@@ -146,7 +147,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -156,21 +157,21 @@ public class ItunesParserTest {
         GeneralDict generalDict = library.getPList().getDict();
         assertEquals(2, generalDict.getPlaylists().size());
 
-        assertFalse(generalDict.getPlaylists().get(0).getMaster());
-        assertEquals("Test Folder", generalDict.getPlaylists().get(0).getName());
-        assertEquals(Integer.valueOf(14525), generalDict.getPlaylists().get(0).getPlaylistId());
-        assertEquals("42A45B8FD23FA86A", generalDict.getPlaylists().get(0).getPlaylistPersistentId());
+        assertFalse(generalDict.getPlaylists().get(0).getMaster().getValue());
+        assertEquals("Test Folder", generalDict.getPlaylists().get(0).getName().getValue());
+        assertEquals(BigInteger.valueOf(14525), generalDict.getPlaylists().get(0).getPlaylistId().getValue());
+        assertEquals("42A45B8FD23FA86A", generalDict.getPlaylists().get(0).getPlaylistPersistentId().getValue());
         assertNull(generalDict.getPlaylists().get(0).getParentPersistentId());
-        assertTrue(generalDict.getPlaylists().get(0).getAllItems());
-        assertFalse(generalDict.getPlaylists().get(0).getVisible());
+        assertTrue(generalDict.getPlaylists().get(0).getAllItems().getValue());
+        assertFalse(generalDict.getPlaylists().get(0).getVisible().getValue());
 
-        assertTrue(generalDict.getPlaylists().get(1).getMaster());
-        assertEquals("Test Playlist", generalDict.getPlaylists().get(1).getName());
-        assertEquals(Integer.valueOf(12345), generalDict.getPlaylists().get(1).getPlaylistId());
-        assertEquals("3E6916F95560A2DD", generalDict.getPlaylists().get(1).getPlaylistPersistentId());
-        assertEquals("42A45B8FD23FA86A", generalDict.getPlaylists().get(1).getParentPersistentId());
-        assertTrue(generalDict.getPlaylists().get(1).getAllItems());
-        assertTrue(generalDict.getPlaylists().get(1).getVisible());
+        assertTrue(generalDict.getPlaylists().get(1).getMaster().getValue());
+        assertEquals("Test Playlist", generalDict.getPlaylists().get(1).getName().getValue());
+        assertEquals(BigInteger.valueOf(12345), generalDict.getPlaylists().get(1).getPlaylistId().getValue());
+        assertEquals("3E6916F95560A2DD", generalDict.getPlaylists().get(1).getPlaylistPersistentId().getValue());
+        assertEquals("42A45B8FD23FA86A", generalDict.getPlaylists().get(1).getParentPersistentId().getValue());
+        assertTrue(generalDict.getPlaylists().get(1).getAllItems().getValue());
+        assertTrue(generalDict.getPlaylists().get(1).getVisible().getValue());
     }
 
     @Test
@@ -179,7 +180,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -190,7 +191,7 @@ public class ItunesParserTest {
 
         generalDict.getPlaylists().forEach(playlist ->
                 assertEquals(0, playlist.getExtraProperties().size(),
-                        String.format("Erreur sur la playlist %d : %s", playlist.getPlaylistId(), playlist.getExtraProperties().toString())));
+                        String.format("Erreur sur la playlist %d : %s", playlist.getPlaylistId().getValue(), playlist.getExtraProperties().toString())));
     }
 
     @Test
@@ -199,7 +200,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -210,13 +211,13 @@ public class ItunesParserTest {
         assertEquals(2, generalDict.getPlaylists().size());
 
         assertEquals(2, generalDict.getPlaylists().get(0).getItems().size());
-        assertEquals(Integer.valueOf(1), generalDict.getPlaylists().get(0).getItems().get(0).getTrackId());
-        assertEquals(Integer.valueOf(2), generalDict.getPlaylists().get(0).getItems().get(1).getTrackId());
+        assertEquals(BigInteger.valueOf(1), generalDict.getPlaylists().get(0).getItems().get(0).getTrackId().getValue());
+        assertEquals(BigInteger.valueOf(2), generalDict.getPlaylists().get(0).getItems().get(1).getTrackId().getValue());
 
         assertEquals(3, generalDict.getPlaylists().get(1).getItems().size());
-        assertEquals(Integer.valueOf(1), generalDict.getPlaylists().get(1).getItems().get(0).getTrackId());
-        assertEquals(Integer.valueOf(3), generalDict.getPlaylists().get(1).getItems().get(1).getTrackId());
-        assertEquals(Integer.valueOf(4), generalDict.getPlaylists().get(1).getItems().get(2).getTrackId());
+        assertEquals(BigInteger.valueOf(1), generalDict.getPlaylists().get(1).getItems().get(0).getTrackId().getValue());
+        assertEquals(BigInteger.valueOf(3), generalDict.getPlaylists().get(1).getItems().get(1).getTrackId().getValue());
+        assertEquals(BigInteger.valueOf(4), generalDict.getPlaylists().get(1).getItems().get(2).getTrackId().getValue());
     }
 
     @Test
@@ -225,7 +226,7 @@ public class ItunesParserTest {
         ItunesParser itunesParser = new ItunesParser();
 
         // When
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary library = itunesParser.load(f.getAbsolutePath());
 
         // Then
@@ -237,14 +238,16 @@ public class ItunesParserTest {
         generalDict.getPlaylists().forEach(playlist ->
                 Optional.ofNullable(playlist.getItems()).ifPresent(items -> items.forEach(item ->
                         assertEquals(0, item.getExtraProperties().size(),
-                                String.format("Erreur sur la playlist %d et l'item %d : %s", playlist.getPlaylistId(),
-                                        item.getTrackId(), item.getExtraProperties().toString())))));
+                                String.format("Erreur sur la playlist %d et l'item %d : %s",
+                                        playlist.getPlaylistId().getValue(),
+                                        item.getTrackId().getValue(),
+                                        item.getExtraProperties().toString())))));
     }
 
     @Test
     void test() throws IOException, SAXException, ParserConfigurationException {
         ItunesParser itunesParser = new ItunesParser();
-        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+        File f = new File("src/test/resources/xml/itunes_library_test.xml");
         ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
 
         String itunesFolderPath = "/mnt/44D38A27637CE7D3/musiques/itunes";
@@ -255,7 +258,7 @@ public class ItunesParserTest {
 
         trackListMap.forEach((track, files) ->
                 System.out.println(
-                        String.format("%s => %s : %d replacement(s)\n", track.getName(), track.getDecodedLocation(), files.size())
+                        String.format("%s => %s : %d replacement(s)\n", track.getName().getValue(), track.getDecodedLocation(), files.size())
                         + files.stream().map(file -> "\t" + file.getAbsolutePath()).collect(Collectors.joining("\n"))
                         + "\n"));
     }
@@ -266,10 +269,10 @@ public class ItunesParserTest {
 //        ItunesParser itunesParser = new ItunesParser();
 //
 //        // When
-//        File f = new File("src/test/resources/xml/itunes_library_real.xml");
+//        File f = new File("src/test/resources/xml/itunes_library_test.xml");
 //        ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
 //
-//        f = new File("src/test/resources/xml/itunes_library_real.xml");
+//        f = new File("src/test/resources/xml/itunes_library_test.xml");
 //        ITunesLibrary realLibrary = itunesParser.load(f.getAbsolutePath());
 //
 //        // Then
