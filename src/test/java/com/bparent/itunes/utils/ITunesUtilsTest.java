@@ -1,9 +1,6 @@
 package com.bparent.itunes.utils;
 
-import com.bparent.itunes.model.GeneralDict;
-import com.bparent.itunes.model.ITunesLibrary;
-import com.bparent.itunes.model.PList;
-import com.bparent.itunes.model.Track;
+import com.bparent.itunes.model.*;
 import com.bparent.itunes.type.XmlInteger;
 import com.bparent.itunes.type.XmlString;
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,27 +62,27 @@ class ITunesUtilsTest {
         );
 
         // When
-        Map<Track, List<File>> fileReplacements = ITunesUtils.suggestMissingFilesReplacement(missingTracks, "src/test/resources");
+        List<TrackWithSuggestions> fileReplacements = ITunesUtils.suggestMissingFilesReplacement(missingTracks, "src/test/resources");
 
         // Then
         assertEquals(3, fileReplacements.size());
 
-        List<Map.Entry<Track, List<File>>> allEntries = fileReplacements.entrySet().stream()
-                .sorted(Comparator.comparing(entry -> entry.getKey().getItunesId().getValue()))
+        List<TrackWithSuggestions> allTracks = fileReplacements.stream()
+                .sorted(Comparator.comparing(track -> track.getItunesId().getValue()))
                 .collect(Collectors.toList());
 
-        Map.Entry<Track, List<File>> voidMusicEntry = allEntries.get(0);
-        assertEquals(BigInteger.valueOf(1000), voidMusicEntry.getKey().getItunesId().getValue());
-        assertEquals(1, voidMusicEntry.getValue().size());
-        assertTrue(voidMusicEntry.getValue().get(0).getAbsolutePath().endsWith("src/test/resources/iTunes Media/Music/void_music_1.mp3"));
+        TrackWithSuggestions voidMusicEntry = allTracks.get(0);
+        assertEquals(BigInteger.valueOf(1000), voidMusicEntry.getItunesId().getValue());
+        assertEquals(1, voidMusicEntry.getSuggestions().size());
+        assertTrue(voidMusicEntry.getSuggestions().get(0).getAbsolutePath().endsWith("src/test/resources/iTunes Media/Music/void_music_1.mp3"));
 
-        Map.Entry<Track, List<File>> iTunesLibraryEntry = allEntries.get(1);
-        assertEquals(BigInteger.valueOf(2000), iTunesLibraryEntry.getKey().getItunesId().getValue());
-        assertEquals(0, iTunesLibraryEntry.getValue().size());
+        TrackWithSuggestions iTunesLibraryEntry = allTracks.get(1);
+        assertEquals(BigInteger.valueOf(2000), iTunesLibraryEntry.getItunesId().getValue());
+        assertEquals(0, iTunesLibraryEntry.getSuggestions().size());
 
-        Map.Entry<Track, List<File>> unknownFileEntry = allEntries.get(2);
-        assertEquals(BigInteger.valueOf(3000), unknownFileEntry.getKey().getItunesId().getValue());
-        assertEquals(0, unknownFileEntry.getValue().size());
+        TrackWithSuggestions unknownFileEntry = allTracks.get(2);
+        assertEquals(BigInteger.valueOf(3000), unknownFileEntry.getItunesId().getValue());
+        assertEquals(0, unknownFileEntry.getSuggestions().size());
     }
 
 }

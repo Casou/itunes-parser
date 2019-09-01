@@ -2,7 +2,6 @@ import com.bparent.itunes.model.GeneralDict;
 import com.bparent.itunes.model.ITunesLibrary;
 import com.bparent.itunes.model.Track;
 import com.bparent.itunes.parser.ItunesParser;
-import com.bparent.itunes.utils.ITunesUtils;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -11,10 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -243,60 +239,5 @@ public class ItunesParserTest {
                                         item.getTrackId().getValue(),
                                         item.getExtraProperties().toString())))));
     }
-
-    @Test
-    void test() throws IOException, SAXException, ParserConfigurationException {
-        ItunesParser itunesParser = new ItunesParser();
-        File f = new File("src/test/resources/xml/itunes_library_test.xml");
-        ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
-
-        String itunesFolderPath = "/mnt/44D38A27637CE7D3/musiques/itunes";
-        List<Track> missingFiles = ITunesUtils.getMissingFiles(currentLibrary, itunesFolderPath);
-        System.out.println(missingFiles + " missing file(s)");
-
-        Map<Track, List<File>> trackListMap = ITunesUtils.suggestMissingFilesReplacement(missingFiles, itunesFolderPath);
-
-        trackListMap.forEach((track, files) ->
-                System.out.println(
-                        String.format("%s => %s : %d replacement(s)\n", track.getName().getValue(), track.getDecodedLocation(), files.size())
-                        + files.stream().map(file -> "\t" + file.getAbsolutePath()).collect(Collectors.joining("\n"))
-                        + "\n"));
-    }
-
-//    @Test
-//    void test() throws IOException, SAXException, ParserConfigurationException {
-//        // Given
-//        ItunesParser itunesParser = new ItunesParser();
-//
-//        // When
-//        File f = new File("src/test/resources/xml/itunes_library_test.xml");
-//        ITunesLibrary currentLibrary = itunesParser.load(f.getAbsolutePath());
-//
-//        f = new File("src/test/resources/xml/itunes_library_test.xml");
-//        ITunesLibrary realLibrary = itunesParser.load(f.getAbsolutePath());
-//
-//        // Then
-//        List<Track> diffTracks = realLibrary.getPList().getDict().getTracks().stream()
-//                .filter(track -> currentLibrary.getPList().getDict().getTracks().stream()
-//                        .noneMatch(t -> t.getName().equals(track.getName())
-//                                && (t.getArtist() != null && t.getArtist().equals(track.getArtist()))
-//                                && (t.getBpm() != null && t.getBpm().equals(track.getBpm()))
-//                                && (t.getTotalTime() != null && t.getTotalTime().equals(track.getTotalTime()))
-//                        ))
-//                .collect(Collectors.toList());
-//
-////        GeneralDict generalDict = currentLibrary.getPList().getDict();
-////        assertEquals(1704, generalDict.getTracks().size());
-////        System.out.println(currentIds.size() + " current songs; " + realIds.size() + " real songs");
-//        System.err.println(diffTracks.size() + " differences");
-////        System.out.println(currentIds);
-////        System.out.println(realIds);
-////        System.err.println(diffTracksId);
-//        diffTracks.stream().map(Track::getLocation).forEach(System.out::println);
-//
-//        assertEquals(1701, realLibrary.getPList().getDict().getTracks().size());
-//        assertEquals(1503, currentLibrary.getPList().getDict().getTracks().size());
-//        assertEquals(1701 - 1504, diffTracks.size());
-//    }
 
 }

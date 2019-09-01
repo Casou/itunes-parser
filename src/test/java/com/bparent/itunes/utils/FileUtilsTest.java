@@ -46,5 +46,17 @@ class FileUtilsTest {
     void listAllFile_should_return_null_if_folder_does_not_exists() {
         assertNull(FileUtils.listAllFiles("folder/not/existing", null));
     }
+    
+    @Test
+    void getArtist_should_return_first_music_folder_as_artist() {
+        assertEquals("Michael Jackson", FileUtils.getArtist("file://localhost/D:/musiques/itunes/iTunes Media/Music/Michael Jackson/Blood On The Dance Floor/27 - Ghost.mp3"));
+        assertEquals("Unknown Artist", FileUtils.getArtist("file://localhost/D:/musiques/itunes/iTunes Media/Music/Unknown Artist/Unknown Album/03 25 - Piste 3___.m4a"));
+    }
+
+    @Test
+    void getAlbum_should_return_second_music_folder_as_album() {
+        assertEquals("Blood On The Dance Floor", FileUtils.getAlbum("file://localhost/D:/musiques/itunes/iTunes Media/Music/Michael Jackson/Blood On The Dance Floor/27 - Ghost.mp3"));
+        assertEquals("Unknown Album", FileUtils.getAlbum("file://localhost/D:/musiques/itunes/iTunes Media/Music/Unknown Artist/Unknown Album/03 25 - Piste 3___.m4a"));
+    }
 
 }

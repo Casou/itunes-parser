@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 
 class FileUtils {
 
+    private static final String ITUNES_MUSIC_FOLDER_IDENTIFIER = "iTunes Media/Music";
+
     static List<File> listAllFiles(String folderName, FilenameFilter filenameFilter) {
         File folder = new File(folderName);
         if (!folder.exists()) {
@@ -22,6 +24,17 @@ class FileUtils {
                     }
                     return Stream.of(file);
                 }).collect(Collectors.toList());
+    }
+
+    static String getArtist(String filePath) {
+        String artist = filePath.substring(filePath.indexOf(ITUNES_MUSIC_FOLDER_IDENTIFIER) + ITUNES_MUSIC_FOLDER_IDENTIFIER.length() + 1);
+        return artist.substring(0, artist.indexOf("/"));
+    }
+
+    static String getAlbum(String filePath) {
+        String album = filePath.substring(filePath.indexOf(ITUNES_MUSIC_FOLDER_IDENTIFIER) + ITUNES_MUSIC_FOLDER_IDENTIFIER.length() + 1);
+        album = album.substring(album.indexOf("/") + 1);
+        return album.substring(0, album.indexOf("/"));
     }
     
 }
