@@ -50,11 +50,11 @@ public class TrackWithSuggestions extends Track {
         }
         int indexFileName = path.toLowerCase().indexOf(fileName.toLowerCase());
         if (indexFileName > -1) {
-            path = highlightString(path, fileName, indexFileName, ConsoleColors.BLUE_BRIGHT);
+            path = highlightString(path, fileName, indexFileName, ConsoleColors.GREEN_BRIGHT);
         } else {
             int indexTitle = path.toLowerCase().indexOf(title.toLowerCase());
             if (indexTitle > -1) {
-                path = highlightString(path, title, indexTitle, ConsoleColors.YELLOW);
+                path = highlightString(path, title, indexTitle, ConsoleColors.GREEN);
             }
         }
 

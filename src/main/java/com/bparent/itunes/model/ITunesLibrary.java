@@ -7,6 +7,7 @@ import lombok.Data;
 public class ITunesLibrary implements XmlExportable {
 
     private PList pList;
+    private Boolean unsavedModifications = false;
 
     @Override
     public String toXml(String paddingLeft) {

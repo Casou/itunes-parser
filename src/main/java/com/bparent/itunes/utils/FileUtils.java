@@ -1,14 +1,13 @@
 package com.bparent.itunes.utils;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class FileUtils {
+public class FileUtils {
 
     private static final String ITUNES_MUSIC_FOLDER_IDENTIFIER = "iTunes Media/Music";
 
@@ -36,5 +35,11 @@ class FileUtils {
         album = album.substring(album.indexOf("/") + 1);
         return album.substring(0, album.indexOf("/"));
     }
-    
+
+    public static void writeInFile(String filePath, String content) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(content);
+
+        writer.close();
+    }
 }

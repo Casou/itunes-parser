@@ -3,7 +3,8 @@ package com.bparent.itunes.model;
 import com.bparent.itunes.annotations.ItunesProperty;
 import com.bparent.itunes.exporter.XmlExportable;
 import com.bparent.itunes.type.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -11,7 +12,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.URLDecoder;
 
-@Data
+@Getter
+@Setter
 public class Track extends ITunesNode implements XmlExportable {
 
     @ItunesProperty("Track ID")
